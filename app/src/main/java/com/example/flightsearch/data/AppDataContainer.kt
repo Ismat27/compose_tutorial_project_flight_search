@@ -7,6 +7,7 @@ import androidx.datastore.preferences.core.Preferences
 interface IAppDataContainer {
     val airportRepository: IAirportRepository
     val favoriteRepository: IFavoriteRepository
+    val flightRepository: IFlightRepository
 }
 
 class AppDataContainer(context: Context, dataStore: DataStore<Preferences>): IAppDataContainer {
@@ -15,5 +16,9 @@ class AppDataContainer(context: Context, dataStore: DataStore<Preferences>): IAp
     }
     override val favoriteRepository: IFavoriteRepository by lazy {
         FavoriteRepository(AppDatabase.getDatabase(context).getFavoriteDao())
+    }
+
+    override val flightRepository: IFlightRepository by lazy {
+        FlightRepository(AppDatabase.getDatabase(context).getAirportDao())
     }
 }
